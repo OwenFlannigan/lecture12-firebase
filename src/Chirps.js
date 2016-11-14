@@ -22,7 +22,15 @@ export class ChirpBox extends React.Component {
     event.preventDefault(); //don't submit
     
     /* Add a new Chirp to the database */
+    var chirpsRef = firebase.database().ref('chirps');
 
+    var chirpData = {
+      text: this.state.post,
+      userId: firebase.auth().currentUser.uid,
+      time: firebase.database.ServerValue.TIMESTAMP
+    }
+
+    chirpsRef.push(chirpData);
 
     this.setState({post:''}); //empty out post (controlled input)
   }
